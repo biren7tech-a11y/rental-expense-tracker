@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { buttonVariants } from '@/lib/button-variants';
 import { ExpenseTable } from '@/components/expenses/expense-table';
 import { ExpenseFilters } from '@/components/expenses/expense-filters';
-import { Plus } from 'lucide-react';
+import { Filter, Plus, Receipt } from 'lucide-react';
 import type { Expense, Property } from '@/lib/types';
 
 export const metadata = { title: 'Expenses' };
@@ -66,12 +66,34 @@ export default async function ExpensesPage({
           properties={(properties as Property[]) ?? []}
         />
       ) : (
-        <div className="rounded-md border border-dashed p-8 text-center">
-          <p className="text-muted-foreground">
-            {property || category
-              ? 'No expenses match the current filters.'
-              : 'No expenses yet. Add your first one to start tracking.'}
-          </p>
+        <div className="rounded-md border border-dashed p-10 text-center space-y-3">
+          {property || category ? (
+            <>
+              <Filter className="mx-auto h-10 w-10 text-muted-foreground/50" />
+              <div>
+                <p className="font-medium">No matching expenses</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Try adjusting your filters or add an expense that matches.
+                </p>
+              </div>
+            </>
+          ) : (
+            <>
+              <Receipt className="mx-auto h-10 w-10 text-muted-foreground/50" />
+              <div>
+                <p className="font-medium">No expenses yet</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Record repairs, insurance, utilities, and other costs for your
+                  properties. Each expense is mapped to an IRS Schedule E
+                  category for tax time.
+                </p>
+              </div>
+              <Link href="/expenses/new" className={buttonVariants()}>
+                <Plus className="mr-2 h-4 w-4" />
+                Add your first expense
+              </Link>
+            </>
+          )}
         </div>
       )}
     </div>

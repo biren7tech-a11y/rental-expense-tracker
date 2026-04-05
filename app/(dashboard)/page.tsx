@@ -89,6 +89,17 @@ export default async function DashboardPage() {
         </Link>
       </div>
 
+      {totalExpensesYtd === 0 && (
+        <div className="rounded-md border border-dashed bg-muted/30 p-5">
+          <p className="font-medium text-sm">Get started tracking expenses</p>
+          <p className="text-sm text-muted-foreground mt-1">
+            Record what you spend on your properties — repairs, insurance,
+            utilities, mortgage interest, and more. DoorTracker maps each
+            expense to an IRS Schedule E category so your taxes are easier.
+          </p>
+        </div>
+      )}
+
       <div>
         <h2 className="text-lg font-medium mb-3">Quick actions</h2>
         <div className="flex gap-3">

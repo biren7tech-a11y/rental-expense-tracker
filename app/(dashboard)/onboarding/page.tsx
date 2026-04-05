@@ -29,7 +29,9 @@ export default async function OnboardingPage() {
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Welcome to DoorTracker</CardTitle>
           <CardDescription>
-            Add your first rental property to get started.
+            Add your first rental property to get started. You&apos;ll be able
+            to track expenses, categorize them by IRS Schedule E line items,
+            and generate tax-ready reports.
           </CardDescription>
         </CardHeader>
         <CardContent>

@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { buttonVariants } from '@/lib/button-variants';
 import { PropertyCard } from '@/components/properties/property-card';
-import { Plus } from 'lucide-react';
+import { Building2, Plus } from 'lucide-react';
 import type { Property } from '@/lib/types';
 
 export const metadata = { title: 'Properties' };
@@ -43,10 +43,19 @@ export default async function PropertiesPage() {
           ))}
         </div>
       ) : (
-        <div className="rounded-md border border-dashed p-8 text-center">
-          <p className="text-muted-foreground">
-            No properties yet. Add your first one to get started.
-          </p>
+        <div className="rounded-md border border-dashed p-10 text-center space-y-3">
+          <Building2 className="mx-auto h-10 w-10 text-muted-foreground/50" />
+          <div>
+            <p className="font-medium">No properties yet</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              Add each rental property you manage. You&apos;ll track expenses
+              and generate Schedule E reports per property.
+            </p>
+          </div>
+          <Link href="/properties/new" className={buttonVariants()}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add your first property
+          </Link>
         </div>
       )}
     </div>

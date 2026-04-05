@@ -1,7 +1,10 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { buttonVariants } from '@/lib/button-variants';
 import { SCHEDULE_E_CATEGORIES } from '@/lib/constants';
+import { FileText, Plus } from 'lucide-react';
 import type { Property } from '@/lib/types';
 
 export const metadata = { title: 'Schedule E Report' };
@@ -157,10 +160,20 @@ export default async function ReportsPage({
       )}
 
       {activeCategories.length === 0 && (
-        <div className="rounded-md border border-dashed p-8 text-center">
-          <p className="text-muted-foreground">
-            No expenses recorded for {year}. Add expenses to generate your report.
-          </p>
+        <div className="rounded-md border border-dashed p-10 text-center space-y-3">
+          <FileText className="mx-auto h-10 w-10 text-muted-foreground/50" />
+          <div>
+            <p className="font-medium">No data for {year}</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              Once you add expenses, this report groups them by property and
+              IRS Schedule E category — ready to hand to your accountant or
+              enter into your tax return.
+            </p>
+          </div>
+          <Link href="/expenses/new" className={buttonVariants()}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add an expense
+          </Link>
         </div>
       )}
     </div>
