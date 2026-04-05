@@ -30,6 +30,16 @@ export default async function DashboardPage() {
 
   const propertyCount = properties?.length ?? 0;
 
+  // Expenses YTD
+  const yearStart = `${new Date().getFullYear()}-01-01`;
+  const { data: expensesYtd } = await supabase
+    .from('expenses')
+    .select('amount')
+    .gte('expense_date', yearStart);
+
+  const totalExpensesYtd =
+    expensesYtd?.reduce((sum, e) => sum + Number(e.amount), 0) ?? 0;
+
   return (
     <div className="space-y-6">
       <div>
@@ -52,13 +62,17 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="opacity-50">
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Expenses (YTD)</CardTitle>
             <Receipt className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-sm text-muted-foreground">Coming in Phase 2</div>
+            <div className="text-2xl font-bold">
+              ${totalExpensesYtd.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+              })}
+            </div>
           </CardContent>
         </Card>
 
@@ -79,6 +93,10 @@ export default async function DashboardPage() {
           <Button render={<Link href="/properties/new" />}>
             <Plus className="mr-2 h-4 w-4" />
             Add property
+          </Button>
+          <Button variant="outline" render={<Link href="/expenses/new" />}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add expense
           </Button>
         </div>
       </div>

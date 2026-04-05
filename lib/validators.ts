@@ -13,3 +13,30 @@ export const loginSchema = z.object({
 });
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
+
+export const expenseSchema = z.object({
+  property_id: z.string().uuid('Please select a property'),
+  vendor: z.string().min(1, 'Vendor is required').max(200),
+  amount: z.coerce.number().positive('Amount must be greater than zero').max(99999999.99),
+  expense_date: z.string().min(1, 'Date is required'),
+  category: z.enum([
+    'Advertising',
+    'Auto and travel',
+    'Cleaning and maintenance',
+    'Commissions',
+    'Insurance',
+    'Legal and professional fees',
+    'Management fees',
+    'Mortgage interest',
+    'Other interest',
+    'Repairs',
+    'Supplies',
+    'Taxes',
+    'Utilities',
+    'Depreciation',
+    'Other',
+  ]),
+  description: z.string().optional().or(z.literal('')),
+});
+
+export type ExpenseFormValues = z.infer<typeof expenseSchema>;
