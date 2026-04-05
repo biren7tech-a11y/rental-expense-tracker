@@ -3,12 +3,17 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { buttonVariants } from '@/lib/button-variants';
 import { ExpenseTable } from '@/components/expenses/expense-table';
+import { ExpenseFilters } from '@/components/expenses/expense-filters';
 import { Plus } from 'lucide-react';
 import type { Expense, Property } from '@/lib/types';
 
 export const metadata = { title: 'Expenses' };
 
-export default async function ExpensesPage() {
+export default async function ExpensesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ property?: string; category?: string }>;
+}) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -16,11 +21,22 @@ export default async function ExpensesPage() {
 
   if (!user) redirect('/login');
 
+  const { property, category } = await searchParams;
+
+  let expenseQuery = supabase
+    .from('expenses')
+    .select('*')
+    .order('expense_date', { ascending: false });
+
+  if (property) {
+    expenseQuery = expenseQuery.eq('property_id', property);
+  }
+  if (category) {
+    expenseQuery = expenseQuery.eq('category', category);
+  }
+
   const [{ data: expenses }, { data: properties }] = await Promise.all([
-    supabase
-      .from('expenses')
-      .select('*')
-      .order('expense_date', { ascending: false }),
+    expenseQuery,
     supabase
       .from('properties')
       .select('*')
@@ -42,6 +58,8 @@ export default async function ExpensesPage() {
         </Link>
       </div>
 
+      <ExpenseFilters properties={(properties as Property[]) ?? []} />
+
       {expenses && expenses.length > 0 ? (
         <ExpenseTable
           expenses={expenses as Expense[]}
@@ -50,7 +68,9 @@ export default async function ExpensesPage() {
       ) : (
         <div className="rounded-md border border-dashed p-8 text-center">
           <p className="text-muted-foreground">
-            No expenses yet. Add your first one to start tracking.
+            {property || category
+              ? 'No expenses match the current filters.'
+              : 'No expenses yet. Add your first one to start tracking.'}
           </p>
         </div>
       )}

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Building2, Receipt } from 'lucide-react';
+import { Home, Building2, Receipt, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { APP_NAME } from '@/lib/constants';
 
@@ -10,6 +10,7 @@ const navItems = [
   { href: '/', label: 'Dashboard', icon: Home },
   { href: '/properties', label: 'Properties', icon: Building2 },
   { href: '/expenses', label: 'Expenses', icon: Receipt },
+  { href: '/reports', label: 'Schedule E', icon: FileText },
 ];
 
 export function Sidebar() {

@@ -1,7 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { useTransition } from 'react';
-import { Trash2 } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { deleteExpense } from '@/app/(dashboard)/expenses/actions';
 import type { Expense, Property } from '@/lib/types';
@@ -24,7 +25,7 @@ export function ExpenseTable({ expenses, properties }: ExpenseTableProps) {
             <th className="px-4 py-3 text-left font-medium hidden sm:table-cell">Property</th>
             <th className="px-4 py-3 text-left font-medium hidden md:table-cell">Category</th>
             <th className="px-4 py-3 text-right font-medium">Amount</th>
-            <th className="px-4 py-3 w-10"></th>
+            <th className="px-4 py-3 w-20"></th>
           </tr>
         </thead>
         <tbody>
@@ -81,15 +82,25 @@ function ExpenseRow({
         })}
       </td>
       <td className="px-4 py-3">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 text-muted-foreground hover:text-destructive"
-          onClick={handleDelete}
-          disabled={isPending}
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
+        <div className="flex gap-1">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground"
+            render={<Link href={`/expenses/${expense.id}/edit`} />}
+          >
+            <Pencil className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-muted-foreground hover:text-destructive"
+            onClick={handleDelete}
+            disabled={isPending}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
       </td>
     </tr>
   );

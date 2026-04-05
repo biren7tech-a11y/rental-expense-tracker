@@ -76,15 +76,17 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="opacity-50">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Schedule E</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-sm text-muted-foreground">Coming in Phase 3</div>
-          </CardContent>
-        </Card>
+        <Link href="/reports" className="block">
+          <Card className="hover:border-primary/30 transition-colors">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium">Schedule E</CardTitle>
+              <FileText className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm text-muted-foreground">View tax report &rarr;</div>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
 
       <div>
