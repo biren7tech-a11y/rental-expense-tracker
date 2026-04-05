@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/lib/button-variants';
 import { PropertyCard } from '@/components/properties/property-card';
 import { Plus } from 'lucide-react';
 import type { Property } from '@/lib/types';
@@ -30,10 +30,10 @@ export default async function PropertiesPage() {
             Manage your rental properties.
           </p>
         </div>
-        <Button render={<Link href="/properties/new" />}>
+        <Link href="/properties/new" className={buttonVariants()}>
           <Plus className="mr-2 h-4 w-4" />
           Add property
-        </Button>
+        </Link>
       </div>
 
       {properties && properties.length > 0 ? (

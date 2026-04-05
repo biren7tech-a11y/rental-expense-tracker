@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/lib/button-variants';
 import { Building2, Plus, Receipt, FileText } from 'lucide-react';
 
 export default async function DashboardPage() {
@@ -90,14 +90,14 @@ export default async function DashboardPage() {
       <div>
         <h2 className="text-lg font-medium mb-3">Quick actions</h2>
         <div className="flex gap-3">
-          <Button render={<Link href="/properties/new" />}>
+          <Link href="/properties/new" className={buttonVariants()}>
             <Plus className="mr-2 h-4 w-4" />
             Add property
-          </Button>
-          <Button variant="outline" render={<Link href="/expenses/new" />}>
+          </Link>
+          <Link href="/expenses/new" className={buttonVariants({ variant: "outline" })}>
             <Plus className="mr-2 h-4 w-4" />
             Add expense
-          </Button>
+          </Link>
         </div>
       </div>
     </div>

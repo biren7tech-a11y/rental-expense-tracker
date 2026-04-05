@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/lib/button-variants';
 import { ExpenseTable } from '@/components/expenses/expense-table';
 import { Plus } from 'lucide-react';
 import type { Expense, Property } from '@/lib/types';
@@ -36,10 +36,10 @@ export default async function ExpensesPage() {
             Track expenses across your properties.
           </p>
         </div>
-        <Button render={<Link href="/expenses/new" />}>
+        <Link href="/expenses/new" className={buttonVariants()}>
           <Plus className="mr-2 h-4 w-4" />
           Add expense
-        </Button>
+        </Link>
       </div>
 
       {expenses && expenses.length > 0 ? (
