@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useTransition } from 'react';
 import { Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/lib/button-variants';
 import { deleteExpense } from '@/app/(dashboard)/expenses/actions';
 import type { Expense, Property } from '@/lib/types';
 
@@ -83,14 +84,12 @@ function ExpenseRow({
       </td>
       <td className="px-4 py-3">
         <div className="flex gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8 text-muted-foreground"
-            render={<Link href={`/expenses/${expense.id}/edit`} />}
+          <Link
+            href={`/expenses/${expense.id}/edit`}
+            className={buttonVariants({ variant: "ghost", size: "icon" }) + " h-8 w-8 text-muted-foreground"}
           >
             <Pencil className="h-4 w-4" />
-          </Button>
+          </Link>
           <Button
             variant="ghost"
             size="icon"

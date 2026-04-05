@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useTransition } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/lib/button-variants';
 import { Building2, Pencil, Trash2 } from 'lucide-react';
 import { deleteProperty } from '@/app/(dashboard)/properties/actions';
 import type { Property } from '@/lib/types';
@@ -37,14 +38,12 @@ export function PropertyCard({ property }: PropertyCardProps) {
           )}
         </div>
         <div className="flex gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8 text-muted-foreground"
-            render={<Link href={`/properties/${property.id}/edit`} />}
+          <Link
+            href={`/properties/${property.id}/edit`}
+            className={buttonVariants({ variant: "ghost", size: "icon" }) + " h-8 w-8 text-muted-foreground"}
           >
             <Pencil className="h-4 w-4" />
-          </Button>
+          </Link>
           <Button
             variant="ghost"
             size="icon"
